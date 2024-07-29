@@ -1,6 +1,16 @@
 import express from "express";
-import recipies from "./recipes.json" assert { type: "json" };
+import fs from "node:fs/promises";
+// import recipies from "./recipes.json" assert { type: "json" };
 // console.log(recipies);
+async function readJSON(filePath) {
+  const data = await fs.readFile(filePath, "utf-8");
+  console.log(data);
+  const jasonData = JSON.parse(data);
+  console.log(jasonData);
+}
+
+readJSON("./recipes.json");
+
 import {
   getRecipes,
   getRecipeByID,
@@ -23,17 +33,14 @@ app.get("/recipes", (request, response) => {
 
 //get by id request
 app.get("/recipes/:id", async (request, response) => {
-  const data=await request.body
+  const data = await request.body;
   console.log("ok");
   response.status(200).json({
-    "data": data,
-
-  })
-})
-  //response.json(result.id);
-  //const allRecipes=recipes 
-     
-
+    data: data,
+  });
+});
+//response.json(result.id);
+//const allRecipes=recipes
 
 //post request (result.body)
 app.post("/recipes", (result, response) => {
