@@ -8,7 +8,13 @@ export async function getRecipes() {}
 // create a get request to response with the activities.json file
 
 // GET A RECIPE BY ID
-export async function getRecipeByID(id) {}
+export async function getRecipeByID(id) {
+    const requestid = recipes.find(({id}) => id === requestid)
+        if (requestid) {
+            return recipes;
+        }
+    }
+
 // create a get request wich contain the ID in the request parameter ✅
 // store the ID value from the get request ID parameter in a variable (requestId)
 // pass the variable(requestId) in the getRecipeByID(id) parameter
