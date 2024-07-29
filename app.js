@@ -17,17 +17,33 @@ app.use(express.json());
 
 //get request
 app.get("/recipes", async (request, response) => {
-  const data = await getRecipes();
-  response.status(200).json(data);
+  const result = await getRecipes();
+  if (!result) {
+    response.status(400).json({
+      status: false,
+      return: result,
+    });
+  }
+  response.status(200).json({
+    response: true,
+    return: result,
+  });
 });
 
 //get by id request
 app.get("/recipes/:id", async (request, response) => {
   const requestId = request.params.id;
   const result = await getRecipeByID(requestId);
+
+  if (!result) {
+    response.status(400).json({
+      status: false,
+      return: result,
+    });
+  }
   response.status(200).json({
-    status: "ok",
-    data: result,
+    response: true,
+    return: result,
   });
 });
 
@@ -35,9 +51,16 @@ app.get("/recipes/:id", async (request, response) => {
 app.post("/recipes", async (request, response) => {
   const newRecipe = request.body;
   const result = await createRecipe(newRecipe);
+
+  if (!result) {
+    response.status(400).json({
+      response: false,
+      return: result,
+    });
+  }
   response.status(200).json({
-    status: "ok",
-    data: result,
+    response: true,
+    return: result,
   });
 });
 
