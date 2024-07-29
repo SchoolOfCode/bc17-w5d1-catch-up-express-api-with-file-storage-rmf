@@ -10,9 +10,7 @@ export async function getRecipes() {}
 // GET A RECIPE BY ID
 export async function getRecipeByID(requestId) {
   const result = recipes.find(({ id }) => id === requestId);
-  if (requestid) {
-    return recipes;
-  }
+  return result;
 }
 
 //get the recipies array from recipes.json
