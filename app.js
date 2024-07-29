@@ -19,29 +19,18 @@ app.use(express.json());
 //get request
 app.get("/recipes", async (request, response) => {
   const result = await getRecipes();
-  if (!result) {
-    response.status(400).json({
-      status: false,
-      return: result,
-    });
-  }
+
   response.status(200).json({
     response: true,
     return: result,
   });
 });
 
-//get by id request
+//get by id (request.params)
 app.get("/recipes/:id", async (request, response) => {
   const requestId = request.params.id;
   const result = await getRecipeByID(requestId);
 
-  if (!result) {
-    response.status(400).json({
-      status: false,
-      return: result,
-    });
-  }
   response.status(200).json({
     response: true,
     return: result,
@@ -53,26 +42,32 @@ app.post("/recipes", async (request, response) => {
   const newRecipe = { id: uuidv4(), ...request.body };
   const result = await createRecipe(newRecipe);
 
-  if (!result) {
-    response.status(400).json({
-      response: false,
-      return: result,
-    });
-  }
   response.status(200).json({
     response: true,
     return: result,
   });
 });
 
-//patch by id (result.body)
-app.patch("recipes/:id", (request, response) => {
-  console.log(request.body);
-  response.send(request.body);
+//patch by id (request.params)
+// app.patch("/recipes/:id", async (request, response) => {
+//   console.log(request.params);
+//   response.send("Updated recipe successfully");
+// });
+
+app.patch("/recipes/:id", async (request, response) => {
+  const id = request.params.id;
+  const body = { id: uuidv4(), ...request.body };
+
+  const data = await updateRecipeByID(id, body);
+
+  response.status(200).json({
+    response: true,
+    return: data,
+  });
 });
 
 //patch by id (result.body)
-app.delete("recipes/:id", (result, response) => {
+app.delete("recipes/:id", (request, response) => {
   console.log(request.body);
   response.send(request.body);
 });
