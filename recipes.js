@@ -4,12 +4,19 @@ import { v4 as uuidv4 } from "uuid";
 const fileName = "recipes.json";
 
 // GET ALL RECIPES
-export async function getRecipes() {}
+export async function getRecipes() {
+  const data = await fs.readFile(fileName, "utf-8");
+  const jasonData = JSON.parse(data);
+  return jasonData;
+}
+console.log(await getRecipes());
 // create a get request to response with the activities.json file
 
 // GET A RECIPE BY ID
 export async function getRecipeByID(requestId) {
-  const result = recipes.find(({ id }) => id === requestId);
+  const data = await fs.readFile(fileName, "utf-8");
+  const jasonData = JSON.parse(data);
+  const result = jasonData.find((object) => object.id === requestId);
   return result;
 }
 

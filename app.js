@@ -15,34 +15,20 @@ const PORT = 3000;
 app.use(express.static("public"));
 app.use(express.json());
 
-let myData = [];
-
-// get recipies from recipies.json
-const recipes = async function readJSON(filePath) {
-  const data = await fs.readFile(filePath, "utf-8");
-  const jasonData = JSON.parse(data);
-  myData.push(jasonData);
-  console.log("inside the function", myData);
-  return jasonData;
-};
-recipes("recipes.json");
-console.log("outside the function", myData);
 //get request
-app.get("/recipes", (request, response) => {
-  console.log("ok");
-  response.send("ok");
+app.get("/recipes", async (request, response) => {
+  const data = await getRecipes();
+  response.status(200).json(data);
 });
 
 //get by id request
 app.get("/recipes/:id", async (request, response) => {
-  const requestId = request.params;
-  getRecipeByID(requestId);
+  const requestId = request.params.id;
+  const result = await getRecipeByID(requestId);
   response.status(200).json({
-    data: requestId,
+    data: result,
   });
 });
-//response.json(result.id);
-//const allRecipes=recipes
 
 //post request (result.body)
 app.post("/recipes", (result, request) => {
