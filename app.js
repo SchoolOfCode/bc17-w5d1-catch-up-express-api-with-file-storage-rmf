@@ -43,19 +43,19 @@ app.get("/recipes/:id", async (request, response) => {
 //const allRecipes=recipes
 
 //post request (result.body)
-app.post("/recipes", (result, response) => {
+app.post("/recipes", (result, request) => {
   console.log(result.body);
   response.send(result.body);
 });
 
 //post request (result.body)
-app.post("/recipes", (result, response) => {
+app.post("/recipes", (result, request) => {
   console.log(result.body);
   response.send(result.body);
 });
 
 //patch by id (result.body)
-app.patch("recipes/:id", (result, response) => {
+app.patch("recipes/:id", (result, request) => {
   console.log(result.body);
   response.send(result.body);
 });
