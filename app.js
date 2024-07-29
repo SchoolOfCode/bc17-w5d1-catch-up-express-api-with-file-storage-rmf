@@ -16,16 +16,24 @@ app.use(express.static("public"));
 app.use(express.json());
 
 //get request
-app.get("/recipes", (result, response) => {
+app.get("/recipes", (request, response) => {
   console.log("ok");
   response.send("ok");
 });
 
 //get by id request
-app.get("/recipes/:id", (result, response) => {
+app.get("/recipes/:id", async (request, response) => {
+  const data=await request.body
   console.log("ok");
-  response.send("ok");
-});
+  response.status(200).json({
+    "data": data,
+
+  })
+})
+  //response.json(result.id);
+  //const allRecipes=recipes 
+     
+
 
 //post request (result.body)
 app.post("/recipes", (result, response) => {
