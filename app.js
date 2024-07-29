@@ -1,15 +1,5 @@
 import express from "express";
 import fs from "node:fs/promises";
-// import recipies from "./recipes.json" assert { type: "json" };
-// console.log(recipies);
-async function readJSON(filePath) {
-  const data = await fs.readFile(filePath, "utf-8");
-  console.log(data);
-  const jasonData = JSON.parse(data);
-  console.log(jasonData);
-}
-
-readJSON("./recipes.json");
 
 import {
   getRecipes,
@@ -25,6 +15,12 @@ const PORT = 3000;
 app.use(express.static("public"));
 app.use(express.json());
 
+const recipies = async function readJSON(filePath) {
+  const data = await fs.readFile(filePath, "utf-8");
+  const jasonData = JSON.parse(data);
+};
+console.log(await recipies("./recipes.json"));
+
 //get request
 app.get("/recipes", (request, response) => {
   console.log("ok");
@@ -33,10 +29,10 @@ app.get("/recipes", (request, response) => {
 
 //get by id request
 app.get("/recipes/:id", async (request, response) => {
-  const data = await request.body;
-  console.log("ok");
+  const requestId = request.params;
+  // console.log(requestId);
   response.status(200).json({
-    data: data,
+    data: requestId,
   });
 });
 //response.json(result.id);
