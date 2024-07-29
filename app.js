@@ -1,4 +1,5 @@
 import express from "express";
+import { v4 as uuidv4 } from "uuid";
 import fs from "node:fs/promises";
 
 import {
@@ -49,7 +50,7 @@ app.get("/recipes/:id", async (request, response) => {
 
 //post request (result.body)
 app.post("/recipes", async (request, response) => {
-  const newRecipe = request.body;
+  const newRecipe = { id: uuidv4(), ...request.body };
   const result = await createRecipe(newRecipe);
 
   if (!result) {
