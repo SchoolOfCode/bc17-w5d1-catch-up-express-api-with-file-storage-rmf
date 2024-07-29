@@ -60,4 +60,20 @@ export async function updateRecipeByID(id, updatedRecipe) {
 }
 
 // DELETE A RECIPE BY ID
-export async function deleteRecipeByID(id) {}
+export async function deleteRecipeByID(id) {
+  try {
+    const data = await fs.readFile(fileName, "utf-8");
+    const jsonData = JSON.parse(data);
+    const objectPosition = jsonData.findIndex((object) => object.id === id);
+    console.log(objectPosition);
+    if (objectPosition < 0) {
+      return "provide a valide ID";
+    }
+    await jsonData.splice(objectPosition, 1);
+    const recipes = JSON.stringify(jsonData);
+    await fs.writeFile(fileName, recipes, "utf-8");
+    return await getRecipes();
+  } catch (error) {
+    console.error("Error reading file:", error);
+  }
+}

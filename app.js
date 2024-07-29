@@ -49,16 +49,11 @@ app.post("/recipes", async (request, response) => {
 });
 
 //patch by id (request.params)
-// app.patch("/recipes/:id", async (request, response) => {
-//   console.log(request.params);
-//   response.send("Updated recipe successfully");
-// });
-
 app.patch("/recipes/:id", async (request, response) => {
-  const id = request.params.id;
-  const body = { id: uuidv4(), ...request.body };
+  const requestId = request.params.id;
+  const requestBody = { id: uuidv4(), ...request.body };
 
-  const data = await updateRecipeByID(id, body);
+  const data = await updateRecipeByID(requestId, requestBody);
 
   response.status(200).json({
     response: true,
@@ -67,9 +62,14 @@ app.patch("/recipes/:id", async (request, response) => {
 });
 
 //patch by id (result.body)
-app.delete("recipes/:id", (request, response) => {
-  console.log(request.body);
-  response.send(request.body);
+app.delete("/recipes/:id", async (request, response) => {
+  const requestId = request.params.id;
+
+  const data = await deleteRecipeByID(requestId);
+  response.status(200).json({
+    response: true,
+    return: data,
+  });
 });
 
 app.listen(PORT, () => {
