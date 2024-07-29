@@ -9,7 +9,7 @@ export async function getRecipes() {}
 
 // GET A RECIPE BY ID
 export async function getRecipeByID(id) {}
-// create a get request wich contain the ID in the request parameter
+// create a get request wich contain the ID in the request parameter ✅
 // store the ID value from the get request ID parameter in a variable (requestId)
 // pass the variable(requestId) in the getRecipeByID(id) parameter
 // compare each recipe object ID with the requestId variable
