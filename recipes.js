@@ -9,27 +9,23 @@ export async function getRecipes() {
   const jasonData = JSON.parse(data);
   return jasonData;
 }
-console.log(await getRecipes());
-// create a get request to response with the activities.json file
 
 // GET A RECIPE BY ID
 export async function getRecipeByID(requestId) {
   const data = await fs.readFile(fileName, "utf-8");
   const jasonData = JSON.parse(data);
+  console.log(jasonData);
   const result = jasonData.find((object) => object.id === requestId);
   return result;
 }
 
-//get the recipies array from recipes.json
-// create a get request wich contain the ID in the request parameter ✅
-// store the ID value from the get request ID parameter in a variable (requestId)✅
-// pass the variable(requestId) in the getRecipeByID(id) parameter
-// compare each recipe object ID with the requestId variable
-// return the object that match the request paramenter ID
-// send a response containing the returned object
-
 // CREATE A RECIPE
-export async function createRecipe(newRecipe) {}
+export async function createRecipe(newRecipe) {
+  let getrecipes = await getRecipes();
+  const storeRecipes = [getrecipes, newRecipe];
+  await fs.writeFile(fileName, JSON.stringify(storeRecipes));
+  return await getRecipes();
+}
 
 // UPDATE A RECIPE BY ID
 export async function updateRecipeByID(id, updatedRecipe) {}

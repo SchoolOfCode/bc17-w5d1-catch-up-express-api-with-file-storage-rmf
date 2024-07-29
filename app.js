@@ -26,32 +26,31 @@ app.get("/recipes/:id", async (request, response) => {
   const requestId = request.params.id;
   const result = await getRecipeByID(requestId);
   response.status(200).json({
+    status: "ok",
     data: result,
   });
 });
 
 //post request (result.body)
-app.post("/recipes", (result, request) => {
-  console.log(result.body);
-  response.send(result.body);
-});
-
-//post request (result.body)
-app.post("/recipes", (result, request) => {
-  console.log(result.body);
-  response.send(result.body);
+app.post("/recipes", async (request, response) => {
+  const newRecipe = request.body;
+  const result = await createRecipe(newRecipe);
+  response.status(200).json({
+    status: "ok",
+    data: result,
+  });
 });
 
 //patch by id (result.body)
-app.patch("recipes/:id", (result, request) => {
-  console.log(result.body);
-  response.send(result.body);
+app.patch("recipes/:id", (request, response) => {
+  console.log(request.body);
+  response.send(request.body);
 });
 
 //patch by id (result.body)
 app.delete("recipes/:id", (result, response) => {
-  console.log(result.body);
-  response.send(result.body);
+  console.log(request.body);
+  response.send(request.body);
 });
 
 app.listen(PORT, () => {
