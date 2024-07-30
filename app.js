@@ -1,6 +1,5 @@
 import express from "express";
 import { v4 as uuidv4 } from "uuid";
-import fs from "node:fs/promises";
 
 import {
   getRecipes,
@@ -19,10 +18,9 @@ app.use(express.json());
 //get request
 app.get("/recipes", async (request, response) => {
   const result = await getRecipes();
-
   response.status(200).json({
     response: true,
-    return: result,
+    payload: result,
   });
 });
 
@@ -33,7 +31,7 @@ app.get("/recipes/:id", async (request, response) => {
 
   response.status(200).json({
     response: true,
-    return: result,
+    payload: result,
   });
 });
 
@@ -44,7 +42,7 @@ app.post("/recipes", async (request, response) => {
 
   response.status(200).json({
     response: true,
-    return: result,
+    payload: result,
   });
 });
 
@@ -57,7 +55,7 @@ app.patch("/recipes/:id", async (request, response) => {
 
   response.status(200).json({
     response: true,
-    return: data,
+    payload: data,
   });
 });
 
@@ -68,7 +66,7 @@ app.delete("/recipes/:id", async (request, response) => {
   const data = await deleteRecipeByID(requestId);
   response.status(200).json({
     response: true,
-    return: data,
+    payload: data,
   });
 });
 

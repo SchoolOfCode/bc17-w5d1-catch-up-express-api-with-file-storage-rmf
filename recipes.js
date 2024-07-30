@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 const fileName = "recipes.json";
 
 // GET ALL RECIPES
+// should return an array of all recipes
 export async function getRecipes() {
   try {
     const data = await fs.readFile(fileName, "utf-8");
@@ -14,6 +15,7 @@ export async function getRecipes() {
 }
 
 // GET A RECIPE BY ID
+// should return the particular recipe we are looking for
 export async function getRecipeByID(requestId) {
   try {
     const data = await fs.readFile(fileName, "utf-8");
@@ -26,6 +28,7 @@ export async function getRecipeByID(requestId) {
 }
 
 // CREATE A RECIPE
+// should add a recipe to the collection and return the new recipe
 export async function createRecipe(newRecipe) {
   try {
     const data = await fs.readFile(fileName, "utf-8");
@@ -41,6 +44,7 @@ export async function createRecipe(newRecipe) {
 }
 
 // UPDATE A RECIPE BY ID
+// should replace the recipe at a certain ID with an updated version and return the new recipe
 export async function updateRecipeByID(id, updatedRecipe) {
   try {
     const data = await fs.readFile(fileName, "utf-8");
@@ -60,6 +64,7 @@ export async function updateRecipeByID(id, updatedRecipe) {
 }
 
 // DELETE A RECIPE BY ID
+// should remove the specific recipe from the collection, and return the deleted recipe
 export async function deleteRecipeByID(id) {
   try {
     const data = await fs.readFile(fileName, "utf-8");
